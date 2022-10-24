@@ -1,81 +1,40 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Banner from '../components/Banner';
+import Features from '../components/Features';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
+import Hero from '../components/Hero';
+import Highlight from '../components/Highlight';
+import Pricing from '../components/Pricing';
+import Process from '../components/Process';
+import UnderConstruction from '../components/UnderConstruction';
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="triage | Track your lab results"
+	description="If you're looking for a way to keep track of your blood test results, look no further than triage. With our easy-to-use interface, you can easily track your results over time and spot any trends that may emerge."
+>
 	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
+			<UnderConstruction client:load />
+      <Header client:load/>
+      <Hero client:load/>
+      <Features client:load/>
+      <Highlight client:load/>
+      <Process client:load/>
+      <Pricing client:load/>
+      <Banner client:load/>
+      <Footer client:load/>
 	</main>
 </Layout>
 
 <style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-	}
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent));
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Inter:wght@700;800&family=Poppins:wght@700&display=swap');
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(243 244 246);
+}
 </style>
