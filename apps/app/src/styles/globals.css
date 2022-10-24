@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Inter:wght@700;800&family=Poppins:wght@700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(243 244 246);
+}
+
