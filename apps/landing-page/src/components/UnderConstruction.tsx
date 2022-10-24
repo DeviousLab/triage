@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IoCloseOutline, IoConstruct } from 'react-icons/io5';
+import { IoCloseOutline, IoConstruct } from 'react-icons/io5/index';
 
 const UnderConstruction = () => {
   const [showUnderConstruction, setShowUnderConstruction] = useState(true);

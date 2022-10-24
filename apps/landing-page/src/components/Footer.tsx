@@ -1,5 +1,5 @@
 
-import { FiGithub, FiTwitter } from 'react-icons/fi';
+import { FiGithub, FiTwitter } from 'react-icons/fi/index';
 
 import Logo from '../assets/images/temp-logo.svg';
 

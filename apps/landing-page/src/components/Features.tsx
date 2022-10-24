@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { IoBarChart, IoDocumentsSharp } from 'react-icons/io5';
-import { MdDocumentScanner, MdPrivacyTip } from 'react-icons/md';
+import { IoBarChart, IoDocumentsSharp } from 'react-icons/io5/index';
+import { MdDocumentScanner, MdPrivacyTip } from 'react-icons/md/index';
 
 const Features = () => {
   return (
