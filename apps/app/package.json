@@ -21,8 +21,7 @@
     "cypress": "cypress open",
     "cypress:headless": "cypress run",
     "e2e": "start-server-and-test dev http://localhost:3000 cypress",
-    "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless",
-    "prepare": "cd ../../ && husky install /.husky"
+    "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless"
   },
   "dependencies": {
     "@emotion/cache": "^11.10.3",
@@ -36,9 +35,11 @@
     "@tailwindcss/forms": "^0.5.3",
     "@zxcvbn-ts/core": "^2.1.0",
     "@zxcvbn-ts/language-common": "^2.0.1",
+    "@zxcvbn-ts/language-en": "^2.1.0",
     "apexcharts": "^3.36.0",
     "autoprefixer": "^10.4.12",
     "clsx": "^1.2.1",
+    "firebase": "^9.12.1",
     "next": "12.3.1",
     "next-seo": "^5.8.0",
     "nprogress": "^0.2.0",
@@ -48,6 +49,7 @@
     "react-apexcharts": "^1.4.0",
     "react-custom-scrollbars-2": "^4.5.0",
     "react-dom": "18.2.0",
+    "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.38.0",
     "react-hot-toast": "^2.4.0",
     "tailwindcss": "^3.2.1",
