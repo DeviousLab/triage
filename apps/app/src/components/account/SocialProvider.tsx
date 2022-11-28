@@ -2,7 +2,11 @@ import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
 import { auth } from '../../firebase/client';
 
-const SocialProvider = () => {
+type SocialProviderProps = {
+  message: string;
+}
+
+const SocialProvider = ({ message }: SocialProviderProps) => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
   return (
@@ -36,7 +40,7 @@ const SocialProvider = () => {
             fill="#EB4335"
           />
         </svg>
-        Sign up with Google
+        {message}
       </button>
       <p className='mt-1 text-sm text-red-600'>
         {error?.message}
