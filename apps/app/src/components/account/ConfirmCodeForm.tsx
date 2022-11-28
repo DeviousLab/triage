@@ -8,7 +8,6 @@ import toast from 'react-hot-toast';
 import { IoBarcodeOutline } from 'react-icons/io5';
 import type { z } from 'zod';
 
-import { confirmSignUp, signIn } from '../../utils/authFunctions';
 import { ConfirmCodeSchema } from '../../utils/zodSchema';
 
 type RegisterFormProps = {
@@ -29,36 +28,7 @@ const ConfirmCodeForm = ({ username, password }: RegisterFormProps) => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<ConfirmCodeSchemaType> = ({ code }) => {
-    confirmSignUp(username, code)
-      .then(() => {
-        signIn(username, password)
-          .then(() => {
-            toast.success('Successfully logged in');
-            router.push('/dashboard');
-          })
-          .catch((error) => {
-            switch (error.toString()) {
-              case 'UserNotConfirmedException: User is not confirmed.':
-                toast.error('User is not confirmed');
-                break;
-              case 'NotAuthorizedException: Incorrect username or password.':
-                toast.error('Incorrect username or password');
-                break;
-              default:
-                toast.error(error.toString());
-            }
-          });
-        toast.success('Successfully confirmed account');
-      })
-      .catch((error) => {
-        switch (error.toString()) {
-          case 'NotAuthorizedException: User cannot be confirmed. Current status is CONFIRMED':
-            toast.error('User already confirmed');
-            break;
-          default:
-            toast.error('Invalid code');
-        }
-      });
+    
   };
 
   return (

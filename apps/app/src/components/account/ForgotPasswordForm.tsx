@@ -6,10 +6,11 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { IoAtOutline } from 'react-icons/io5';
 import type { z } from 'zod';
+import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
 
-import { forgotPassword } from '../../utils/authFunctions';
 import { ForgotPasswordSchema } from '../../utils/zodSchema';
 import ResetPasswordForm from './ResetPasswordForm';
+import { auth } from '../../firebase/client';
 
 type ForgotPasswordSchemaType = z.infer<typeof ForgotPasswordSchema>;
 
@@ -23,25 +24,11 @@ const ForgotPasswordForm = () => {
   });
   const [showResetPassword, setShowResetPassword] = useState<boolean>(false);
   const [confirmEmail, setConfirmEmail] = useState<string>('');
+  const [sendPasswordResetEmail, sending, error] =
+    useSendPasswordResetEmail(auth);
 
-  const onSubmit: SubmitHandler<ForgotPasswordSchemaType> = ({ email }) => {
-    forgotPassword(email)
-      .then(() => {
-        setShowResetPassword(true);
-        setConfirmEmail(email);
-      })
-      .catch((error) => {
-        switch (error.toString()) {
-          case 'UserNotFoundException: Username/client id combination not found.':
-            toast.error('User not found');
-            break;
-          case 'InvalidParameterException: Cannot reset password for the user as there is no registered/verified email or phone_number':
-            toast.error('Invalid email');
-            break;
-          default:
-            toast.error(error.toString());
-        }
-      });
+  const onSubmit: SubmitHandler<ForgotPasswordSchemaType> = async ({ email }) => {
+    await sendPasswordResetEmail(email);
   };
 
   return (

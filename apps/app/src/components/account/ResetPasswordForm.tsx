@@ -12,7 +12,6 @@ import {
 } from 'react-icons/io5';
 import type { z } from 'zod';
 
-import { forgotPasswordSubmit } from '../../utils/authFunctions';
 import { ResetPasswordSchema } from '../../utils/zodSchema';
 import PasswordStrengthChecker from './PasswordStrengthChecker';
 
@@ -38,34 +37,6 @@ const ResetPasswordForm = ({ username }: ForgotPasswordProps) => {
     code,
     password,
   }) => {
-    forgotPasswordSubmit(username, code, password)
-      .then(() => {
-        toast.success('Password reset successfully');
-        router.push('/account/');
-      })
-      .catch((error) => {
-        switch (error.toString()) {
-          case 'CodeMismatchException: Invalid verification code provided, please try again.':
-            toast.error('Invalid code');
-            break;
-          case 'InvalidPasswordException: Password does not conform to policy: Password not long enough':
-            toast.error(
-              'Password must be at least 8 characters long, contain one number, one special character, and one capital letter'
-            );
-            break;
-          case 'ExpiredCodeException':
-            toast.error('Code expired');
-            break;
-          case 'LimitExceededException: Attempt limit exceeded, please try after some time.':
-            toast.error('Too many attempts');
-            break;
-          case 'UserNotFoundException: Username/client id combination not found.':
-            toast.error('User not found');
-            break;
-          default:
-            toast.error(error.toString());
-        }
-      });
   };
 
   return (
