@@ -8,12 +8,14 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { IoAtOutline, IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
 import type { z } from 'zod';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
-import { signUp } from '../../utils/authFunctions';
 import { RegisterUserSchema } from '../../utils/zodSchema';
 import ConfirmCodeForm from './ConfirmCodeForm';
 import PasswordStrengthChecker from './PasswordStrengthChecker';
 import SocialProvider from './SocialProvider';
+import { auth } from '../../firebase/client';
+import { FIREBASE_ERRORS } from '../../firebase/errors';
 
 type RegisterUserSchemaType = z.infer<typeof RegisterUserSchema>;
 
@@ -30,35 +32,24 @@ const RegisterForm = () => {
   const [showConfirmCode, setShowConfirmCode] = useState<boolean>(false);
   const [confirmEmail, setConfirmEmail] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [
+    createUserWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useCreateUserWithEmailAndPassword(auth);
 
   const onSubmit: SubmitHandler<RegisterUserSchemaType> = ({
     email,
     password,
+    confirmPassword
   }) => {
-    signUp(email, password)
-      .then(() => {
-        toast.success('Check your email for the confirmation link');
-        setShowConfirmCode(true);
-        setConfirmEmail(email);
-        setConfirmPassword(password);
-      })
-      .catch((error) => {
-        switch (error.toString()) {
-          case 'UsernameExistsException':
-            toast.error('User already exists');
-            break;
-          case 'InvalidParameterException':
-            toast.error('Invalid email');
-            break;
-          case 'InvalidPasswordException: Password does not conform to policy: Password not long enough':
-            toast.error(
-              'Password must be at least 8 characters long, contain one number, one special character, and one capital letter'
-            );
-            break;
-          default:
-            toast.error(error.toString());
-        }
-      });
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match');
+      return;
+    }
+    createUserWithEmailAndPassword(email, password);
+    toast.success('Check your email for the confirmation link');
   };
 
   return (
@@ -184,7 +175,7 @@ const RegisterForm = () => {
                   </label>
                   {errors.accept && (
                     <p className="mt-1 text-sm text-red-600">
-                      {errors.accept.message}
+                      {errors.accept.message || FIREBASE_ERRORS[error?.message!]}
                     </p>
                   )}
                 </div>

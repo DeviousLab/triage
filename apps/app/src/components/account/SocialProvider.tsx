@@ -1,17 +1,16 @@
-import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
-import { Auth } from 'aws-amplify';
+import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+
+import { auth } from '../../firebase/client';
 
 const SocialProvider = () => {
+  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+
   return (
     <div className="mt-2">
       <button
         type="button"
         className="inline-flex w-full items-center justify-center gap-2 rounded-md border bg-white py-3 px-4 align-middle text-sm font-medium text-logo shadow-sm transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-white"
-        onClick={() =>
-          Auth.federatedSignIn({
-            provider: CognitoHostedUIIdentityProvider.Google,
-          })
-        }
+        onClick={() => signInWithGoogle()}
       >
         <svg
           className="h-auto w-4"
@@ -39,6 +38,9 @@ const SocialProvider = () => {
         </svg>
         Sign up with Google
       </button>
+      <p className='mt-1 text-sm text-red-600'>
+        {error?.message}
+      </p>
     </div>
   );
 };
