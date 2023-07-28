@@ -58,7 +58,7 @@ const Hero = () => {
               }}
             >
               <img
-                src={Dashboard}
+                src={Dashboard.src}
                 alt="Sample dashboard page"
                 layout="intrinsic"
               />

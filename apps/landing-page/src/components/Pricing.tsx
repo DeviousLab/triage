@@ -28,12 +28,11 @@ const Pricing = () => {
           Pricing
         </h2>
         <p className="text-base text-gray-600 md:text-lg">
-          For better or for worse, I hold the belief that services related to
+          I hold the belief that services related to
           health and education should be free. It wouldn&apos;t sit right with
           me to profit in an already over-monetised industry.
           <br />
-          So, I&apos;m offering this service for free. However, if you would
-          like to support me, you can do so by buying me a coffee.
+          So, this service is 100% free.
         </p>
       </motion.div>
       <motion.div
@@ -56,9 +55,15 @@ const Pricing = () => {
                 </p>
                 <motion.p
                   className="font-Inter text-5xl font-extrabold tracking-tight text-transparent"
-                  initial={{ color: '#000', scale: 0.8 }}
+                  initial={{ color: '#000', scale: 2.5 }}
                   whileInView={{
                     color: [
+                      '#0978FE',
+                      '#0654B2',
+                      '#3A22FE',
+                      '#09FEB5',
+                      '#06B27E',
+                      '#02073E',
                       '#0978FE',
                       '#0654B2',
                       '#3A22FE',
@@ -77,7 +82,7 @@ const Pricing = () => {
                     damping: 10,
                     mass: 0.75,
                     stiffness: 100,
-                    duration: 3,
+                    duration: 4,
                   }}
                   viewport={{ once: true }}
                 >

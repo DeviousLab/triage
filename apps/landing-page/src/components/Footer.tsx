@@ -15,14 +15,14 @@ const Footer = () => {
           >
             <img
               className="w-8 cursor-pointer"
-              src={Logo}
+              src={Logo.src}
               alt="triage logo"
             />
             <span className="ml-1 font-Poppins text-xl text-logo">triage</span>
           </a>
         <p className="mt-4 font-Arimo text-sm text-gray-600 sm:ml-4 sm:mt-0 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:pl-4">
-          &copy; 2022 triage —
-            <a
+          &copy; 2023 triage Inc. — All rights reserved
+            {/* <a
               href="https://deviouslab.dev"
               className="ml-1"
               rel="noopener noreferrer"
@@ -31,10 +31,10 @@ const Footer = () => {
               title="DeviousLab portfolio link"
             >
               @DeviousLab
-            </a>
+            </a> */}
         </p>
         <span className="mt-4 inline-flex justify-center sm:ml-auto sm:mt-0 sm:justify-start">
-            <a
+            {/* <a
               href="https://github.com/DeviousLab"
               className="cursor-pointer text-gray-500"
               target="_blank"
@@ -43,9 +43,9 @@ const Footer = () => {
               title="GitHub social link"
             >
               <FiGithub size={25} />
-            </a>
+            </a> */}
             <a
-              href="https://twitter.com/DeviousLab"
+              href="https://twitter.com/triage_app"
               className="ml-3 cursor-pointer text-gray-500"
               target="_blank"
               rel="noreferrer"

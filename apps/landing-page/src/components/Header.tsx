@@ -29,7 +29,7 @@ const Header = () => {
               >
                 <img
                   className="w-8 cursor-pointer"
-                  src={Logo}
+                  src={Logo.src}
                   alt="triage logo"
                 />
                 <span className="ml-2 font-Poppins text-xl font-bold text-logo">
@@ -126,7 +126,7 @@ const Header = () => {
                         >
                           <img
                             className="w-8 cursor-pointer"
-                            src={Logo}
+                            src={Logo.src}
                             alt="logo"
                           />
                           <span className="ml-2 font-Poppins text-xl font-bold text-logo">

@@ -4,12 +4,13 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  apiKey: "AIzaSyBrQM9q0vVLzJoFvDu8PU43azqMePqBYaI",
+  authDomain: "triage-25f2d.firebaseapp.com",
+  projectId: "triage-25f2d",
+  storageBucket: "triage-25f2d.appspot.com",
+  messagingSenderId: "834485143567",
+  appId: "1:834485143567:web:14d02908953e1a47ae3b7a",
+  measurementId: "G-XSVHK9NHFP"
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
