@@ -22,7 +22,7 @@ const Highlight = () => {
           <div className="relative mb-6 max-w-xl">
             <img
               className="absolute -left-16 -top-16"
-              src={LeftFeature}
+              src={LeftFeature.src}
               alt="background graphics"
             />
             <p
@@ -60,12 +60,12 @@ const Highlight = () => {
         >
           <img
             className="absolute -left-16 -top-16 hidden md:block"
-            src={RightTopFeature}
+            src={RightTopFeature.src}
             alt="background graphics"
           />
           <img
             className="absolute hidden md:block lg:-right-8 lg:bottom-8 xl:bottom-16 xl:-right-16"
-            src={RightBottomFeature}
+            src={RightBottomFeature.src}
             alt="background graphics"
           />
           <img
