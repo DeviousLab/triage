@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "https://triage-app-b2z6.vercel.app/:path*"
+    }
+  ]
+}
