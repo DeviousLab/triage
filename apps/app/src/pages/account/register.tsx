@@ -15,7 +15,7 @@ const Register: NextPage = () => {
 
   useEffect(() => {
     if(user) {
-      router.push('/');
+      router.push('/account/verify-email');
     }
   }, [user]);
   
