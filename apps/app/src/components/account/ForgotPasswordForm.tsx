@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 import { IoAtOutline } from 'react-icons/io5';
 import type { z } from 'zod';
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
@@ -29,6 +28,7 @@ const ForgotPasswordForm = () => {
 
   const onSubmit: SubmitHandler<ForgotPasswordSchemaType> = async ({ email }) => {
     await sendPasswordResetEmail(email);
+		setShowResetPassword(true);
   };
 
   return (

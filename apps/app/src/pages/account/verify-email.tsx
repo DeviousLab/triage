@@ -1,10 +1,11 @@
+import { NextPage } from 'next';
+
 import Footer from '../../components/account/Footer';
 import Header from '../../components/account/Header';
-import { auth } from '../../firebase/client';
 import { Meta } from '../../layouts/Meta';
 import EmailVerification from "../../components/account/EmailVerification"
 
-const SendEmailVerification = () => {
+const SendEmailVerification: NextPage = () => {
 
   return (
     <>

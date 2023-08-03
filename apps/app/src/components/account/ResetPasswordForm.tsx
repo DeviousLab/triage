@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 import {
   IoBarcodeOutline,
   IoEyeOffOutline,
