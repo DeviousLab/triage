@@ -24,7 +24,7 @@ const PasswordStrengthChecker = ({ password }: PasswordProps) => {
   const createPassLabel = () => {
     switch (passwordStrength.score) {
       case 0:
-        return '';
+        return 'Weak';
       case 1:
         return 'Weak';
       case 2:
@@ -41,7 +41,7 @@ const PasswordStrengthChecker = ({ password }: PasswordProps) => {
   const ProgressColor = () => {
     switch (passwordStrength.score) {
       case 0:
-        return 'none';
+        return '#e53935';
       case 1:
         return '#e53935';
       case 2:
@@ -58,11 +58,11 @@ const PasswordStrengthChecker = ({ password }: PasswordProps) => {
   const ProgressColorBackground = () => {
     switch (passwordStrength.score) {
       case 0:
-        return 'none';
+        return '#ef9a9a';
       case 1:
         return '#ef9a9a';
       case 2:
-        return '#fff59d';
+        return '#fff59a';
       case 3:
         return '#e6ee9c';
       case 4:
@@ -79,7 +79,7 @@ const PasswordStrengthChecker = ({ password }: PasswordProps) => {
 
   return (
     <>
-      {passwordStrength.score >= 1 && (
+      {passwordStrength.score >= 0 && password && (
         <div className="relative">
           <div
             className="mb-1 flex h-2 overflow-hidden rounded text-xs"
