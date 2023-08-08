@@ -5,93 +5,105 @@ import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { IoAtOutline } from 'react-icons/io5';
 import type { z } from 'zod';
-import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
+import { useSignIn } from '@clerk/nextjs';
+import toast from 'react-hot-toast';
 
 import { ForgotPasswordSchema } from '../../utils/zodSchema';
 import ResetPasswordForm from './ResetPasswordForm';
-import { auth } from '../../firebase/client';
 
 type ForgotPasswordSchemaType = z.infer<typeof ForgotPasswordSchema>;
 
 const ForgotPasswordForm = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ForgotPasswordSchemaType>({
-    resolver: zodResolver(ForgotPasswordSchema),
-  });
-  const [showResetPassword, setShowResetPassword] = useState<boolean>(false);
-  const [confirmEmail, setConfirmEmail] = useState<string>('');
-  const [sendPasswordResetEmail, sending, error] =
-    useSendPasswordResetEmail(auth);
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<ForgotPasswordSchemaType>({
+		resolver: zodResolver(ForgotPasswordSchema),
+	});
+	const [showResetPassword, setShowResetPassword] = useState<boolean>(false);
+	const [confirmEmail, setConfirmEmail] = useState<string>('');
+	const { isLoaded, signIn, setActive } = useSignIn();
 
-  const onSubmit: SubmitHandler<ForgotPasswordSchemaType> = async ({ email }) => {
-    await sendPasswordResetEmail(email);
-		setShowResetPassword(true);
-  };
+	const onSubmit: SubmitHandler<ForgotPasswordSchemaType> = async ({
+		email,
+	}) => {
+		if (!isLoaded) {
+			return null;
+		}
+		await signIn
+			?.create({
+				strategy: 'reset_password_email_code',
+				identifier: email,
+			})
+			.then((_) => {
+        setConfirmEmail(email);
+				setShowResetPassword(true);
+			})
+			.catch((err: any) => toast.error(err.errors[0].message));
+	};
 
-  return (
-    <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-lg">
-        {showResetPassword ? (
-          <ResetPasswordForm username={confirmEmail} />
-        ) : (
-          <>
-            <h1 className="text-center font-Inter text-2xl font-bold text-primary sm:text-3xl">
-              Forgot your password?
-            </h1>
+	return (
+		<div className='mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8'>
+			<div className='mx-auto max-w-lg'>
+				{showResetPassword ? (
+					<ResetPasswordForm username={confirmEmail} />
+				) : (
+					<>
+						<h1 className='text-center font-Inter text-2xl font-bold text-primary sm:text-3xl'>
+							Forgot your password?
+						</h1>
 
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="mt-6 mb-0 space-y-4 rounded-lg bg-gray-50 p-8 font-Arimo text-logo"
-            >
-              <p className="text-lg font-medium">Recover your account</p>
+						<form
+							onSubmit={handleSubmit(onSubmit)}
+							className='mt-6 mb-0 space-y-4 rounded-lg bg-gray-50 p-8 font-Arimo text-logo'
+						>
+							<p className='text-lg font-medium'>Recover your account</p>
 
-              <div>
-                <label htmlFor="email" className="text-sm font-medium">
-                  Email
-                </label>
+							<div>
+								<label htmlFor='email' className='text-sm font-medium'>
+									Email
+								</label>
 
-                <div className="relative mt-1">
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
-                    placeholder="Enter email"
-                    {...register('email')}
-                  />
+								<div className='relative mt-1'>
+									<input
+										type='email'
+										id='email'
+										className='w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm'
+										placeholder='Enter email'
+										{...register('email')}
+									/>
 
-                  <span className="absolute inset-y-0 right-4 inline-flex items-center">
-                    <IoAtOutline className="h-5 w-5 text-gray-400" />
-                  </span>
-                </div>
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
+									<span className='absolute inset-y-0 right-4 inline-flex items-center'>
+										<IoAtOutline className='h-5 w-5 text-gray-400' />
+									</span>
+								</div>
+								{errors.email && (
+									<p className='mt-1 text-sm text-red-600'>
+										{errors.email.message}
+									</p>
+								)}
+							</div>
 
-              <button
-                type="submit"
-                className="block w-full rounded-lg bg-primary px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-accent focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-white"
-              >
-                Recover password
-              </button>
+							<button
+								type='submit'
+								className='block w-full rounded-lg bg-primary px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-accent focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-white'
+							>
+								Recover password
+							</button>
 
-              <p className="text-center text-sm text-gray-500">
-                Remember your password?
-                <Link href="/account">
-                  <a className="ml-1 underline">Sign in here</a>
-                </Link>
-              </p>
-            </form>
-          </>
-        )}
-      </div>
-    </div>
-  );
+							<p className='text-center text-sm text-gray-500'>
+								Remember your password?
+								<Link href='/account'>
+									<a className='ml-1 underline'>Sign in here</a>
+								</Link>
+							</p>
+						</form>
+					</>
+				)}
+			</div>
+		</div>
+	);
 };
 
 export default ForgotPasswordForm;
