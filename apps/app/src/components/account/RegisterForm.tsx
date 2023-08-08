@@ -196,7 +196,7 @@ const RegisterForm = () => {
 								Or
 							</div>
 
-							<SocialProvider message={'Sign up with Google'} />
+							<SocialProvider />
 
 							<p className='text-center text-sm text-gray-500'>
 								Already have an account?
