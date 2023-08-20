@@ -85,7 +85,7 @@ const ResetPasswordForm = ({ username }: ForgotPasswordProps) => {
 							<path d='M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z' />
 						</svg>
 					</div>
-					<Link href='/account'>
+					<Link legacyBehavior href='/account'>
 						<a
 							type='submit'
 							className='block w-full rounded-lg text-center bg-primary px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-accent focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-white'
@@ -194,7 +194,7 @@ const ResetPasswordForm = ({ username }: ForgotPasswordProps) => {
 
 						<p className='text-center text-sm text-gray-500'>
 							Remember your password?
-							<Link href='/account'>
+							<Link legacyBehavior href='/account'>
 								<a className='ml-1 underline'>Sign in here</a>
 							</Link>
 						</p>

@@ -3,12 +3,17 @@ import { UserButton } from '@clerk/clerk-react';
 
 import Header from '../components/account/Header';
 import Footer from '../components/account/Footer';
+import { Meta } from '../layouts/Meta';
 
 const Home: NextPage = () => {
 	return (
 		<>
+			<Meta
+				title='triage | Thanks for signing up!'
+				description='Thank you for registering an account with triage. We will let you know when the app is ready'
+			/>
 			<Header />
-      <UserButton />
+			<UserButton />
 			<section className='mx-auto my-52'>
 				<div className='py-8 px-4 mx-auto my-8 max-w-screen-md text-center lg:py-16 lg:px-12'>
 					<svg
@@ -25,11 +30,12 @@ const Home: NextPage = () => {
 						Under Construction
 					</h1>
 					<p className='text-logo md:text-lg xl:text-xl '>
-						Thank you for signing up! This site is still being actively developed. We'll let you know when it's ready!
+						Thank you for signing up! This site is still being actively
+						developed. We'll let you know when it's ready!
 					</p>
 				</div>
 			</section>
-      <Footer />
+			<Footer />
 		</>
 	);
 };

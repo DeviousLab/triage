@@ -64,4 +64,4 @@ export const ConfirmCodeSchema = z.object({
     .string()
     .min(1, { message: 'A code is required' })
     .max(6, { message: 'The code is invalid' }),
-});
+}).readonly();

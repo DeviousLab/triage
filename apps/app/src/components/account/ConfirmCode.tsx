@@ -9,12 +9,9 @@ import { IoBarcodeOutline } from 'react-icons/io5';
 import type { z } from 'zod';
 import { useSignUp } from "@clerk/nextjs";
 
+
 import { ConfirmCodeSchema } from '../../utils/zodSchema';
 
-type RegisterFormProps = {
-  username: string;
-  password: string;
-};
 type ConfirmCodeSchemaType = z.infer<typeof ConfirmCodeSchema>;
 
 const ConfirmCodeForm = () => {
@@ -99,7 +96,7 @@ const ConfirmCodeForm = () => {
         </button>
 
         <p className="text-center text-sm text-gray-500">
-          <Link href="/">
+          <Link legacyBehavior href="/">
             <a className="ml-1 underline">Cancel</a>
           </Link>
         </p>

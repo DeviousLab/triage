@@ -94,7 +94,7 @@ const ForgotPasswordForm = () => {
 
 							<p className='text-center text-sm text-gray-500'>
 								Remember your password?
-								<Link href='/account'>
+								<Link legacyBehavior href='/account'>
 									<a className='ml-1 underline'>Sign in here</a>
 								</Link>
 							</p>

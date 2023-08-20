@@ -94,7 +94,7 @@ const LoginForm = () => {
 							<label htmlFor='password' className='text-sm font-medium'>
 								Password
 							</label>
-							<Link href='/account/forgot-password'>
+							<Link legacyBehavior href='/account/forgot-password'>
 								<a className='text-sm font-medium text-primary decoration-2 hover:underline'>
 									Forgot password?
 								</a>
@@ -140,7 +140,7 @@ const LoginForm = () => {
 
 					<p className='text-center text-sm text-gray-500'>
 						Don't have an account yet?
-						<Link href='/account/register'>
+						<Link legacyBehavior href='/account/register'>
 							<a className='ml-1 underline'>Sign up here</a>
 						</Link>
 					</p>
