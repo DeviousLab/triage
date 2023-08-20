@@ -5,7 +5,7 @@ const Footer = () => {
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="flex justify-center  sm:justify-start">
             <p className="mt-4 text-center font-Arimo text-sm text-logo lg:mt-0 lg:text-right">
-              &copy; 2022 triage. All rights reserved.
+              &copy; 2023 triage. All rights reserved.
             </p>
           </div>
 

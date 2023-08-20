@@ -7,16 +7,14 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { IoBarcodeOutline } from 'react-icons/io5';
 import type { z } from 'zod';
+import { useSignUp } from "@clerk/nextjs";
+
 
 import { ConfirmCodeSchema } from '../../utils/zodSchema';
 
-type RegisterFormProps = {
-  username: string;
-  password: string;
-};
 type ConfirmCodeSchemaType = z.infer<typeof ConfirmCodeSchema>;
 
-const ConfirmCodeForm = ({ username, password }: RegisterFormProps) => {
+const ConfirmCodeForm = () => {
   const {
     register,
     handleSubmit,
@@ -25,16 +23,35 @@ const ConfirmCodeForm = ({ username, password }: RegisterFormProps) => {
     resolver: zodResolver(ConfirmCodeSchema),
   });
   const [validCode, setValidCode] = useState(0);
+  const { isLoaded, signUp, setActive } = useSignUp();
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<ConfirmCodeSchemaType> = ({ code }) => {
-    
+  const onSubmit: SubmitHandler<ConfirmCodeSchemaType> = async ({ code }) => {
+    if (!isLoaded) {
+      return;
+    };
+
+    try {
+      const completeSignUp = await signUp.attemptEmailAddressVerification({ code })
+      if (completeSignUp.status !== "complete") {
+        toast.error("Something went wrong")
+        console.log(JSON.stringify(completeSignUp, null, 2));
+        return
+      }
+      if (completeSignUp.status === "complete") {
+        toast.success("Email verified")
+        await setActive({ session: completeSignUp.createdSessionId })
+        router.push("/")
+      }
+    } catch (err: any) {
+      toast.error(JSON.stringify(err, null, 2))
+    }
   };
 
   return (
     <>
       <h1 className="text-center font-Inter text-2xl font-bold text-primary sm:text-3xl">
-        Verify your account
+        Verify your account!
       </h1>
 
       <form
@@ -79,7 +96,7 @@ const ConfirmCodeForm = ({ username, password }: RegisterFormProps) => {
         </button>
 
         <p className="text-center text-sm text-gray-500">
-          <Link href="/">
+          <Link legacyBehavior href="/">
             <a className="ml-1 underline">Cancel</a>
           </Link>
         </p>

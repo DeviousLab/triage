@@ -1,51 +1,79 @@
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { OAuthStrategy } from '@clerk/types';
+import { useSignIn } from '@clerk/clerk-react';
 
-import { auth } from '../../firebase/client';
+const SocialProvider = () => {
+	const { signIn, isLoaded } = useSignIn();
 
-type SocialProviderProps = {
-  message: string;
-}
+	if (!isLoaded) {
+		return null;
+	}
 
-const SocialProvider = ({ message }: SocialProviderProps) => {
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+	const signInWith = (strategy: OAuthStrategy) => {
+		return signIn.authenticateWithRedirect({
+			strategy,
+			redirectUrl: '/account/sso-callback',
+			redirectUrlComplete: '/',
+		});
+	};
 
-  return (
-    <div className="mt-2">
-      <button
-        type="button"
-        className="inline-flex w-full items-center justify-center gap-2 rounded-md border bg-white py-3 px-4 align-middle text-sm font-medium text-logo shadow-sm transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-white"
-        onClick={() => signInWithGoogle()}
-      >
-        <svg
-          className="h-auto w-4"
-          width="46"
-          height="47"
-          viewBox="0 0 46 47"
-          fill="none"
-        >
-          <path
-            d="M46 24.0287C46 22.09 45.8533 20.68 45.5013 19.2112H23.4694V27.9356H36.4069C36.1429 30.1094 34.7347 33.37 31.5957 35.5731L31.5663 35.8669L38.5191 41.2719L38.9885 41.3306C43.4477 37.2181 46 31.1669 46 24.0287Z"
-            fill="#4285F4"
-          />
-          <path
-            d="M23.4694 47C29.8061 47 35.1161 44.9144 39.0179 41.3012L31.625 35.5437C29.6301 36.9244 26.9898 37.8937 23.4987 37.8937C17.2793 37.8937 12.0281 33.7812 10.1505 28.1412L9.88649 28.1706L2.61097 33.7812L2.52296 34.0456C6.36608 41.7125 14.287 47 23.4694 47Z"
-            fill="#34A853"
-          />
-          <path
-            d="M10.1212 28.1413C9.62245 26.6725 9.32908 25.1156 9.32908 23.5C9.32908 21.8844 9.62245 20.3275 10.0918 18.8588V18.5356L2.75765 12.8369L2.52296 12.9544C0.909439 16.1269 0 19.7106 0 23.5C0 27.2894 0.909439 30.8731 2.49362 34.0456L10.1212 28.1413Z"
-            fill="#FBBC05"
-          />
-          <path
-            d="M23.4694 9.07688C27.8699 9.07688 30.8622 10.9863 32.5344 12.5725L39.1645 6.11C35.0867 2.32063 29.8061 0 23.4694 0C14.287 0 6.36607 5.2875 2.49362 12.9544L10.0918 18.8588C11.9987 13.1894 17.25 9.07688 23.4694 9.07688Z"
-            fill="#EB4335"
-          />
-        </svg>
-        {message}
-      </button>
-      <p className='mt-1 text-sm text-red-600'>
-        {error?.message}
-      </p>
-    </div>
-  );
+	return (
+		<div className='mt-2'>
+			<button
+				type='button'
+				className='inline-flex w-full items-center justify-center gap-2 rounded-md border mb-2 bg-white py-3 px-4 align-middle text-sm font-medium text-logo shadow-sm transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-white'
+				onClick={() => signInWith('oauth_google')}
+			>
+				<svg
+					xmlns='http://www.w3.org/2000/svg'
+					fill='none'
+					height='1.25em'
+					viewBox='0 0 600 600'
+					width='1.25em'
+				>
+					<path
+						d='M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z'
+						fill='#4285f4'
+					/>
+					<path
+						d='M272.1 544.3c73.4 0 135.3-24.1 180.4-65.7l-87.7-68c-24.4 16.6-55.9 26-92.6 26-71 0-131.2-47.9-152.8-112.3H28.9v70.1c46.2 91.9 140.3 149.9 243.2 149.9z'
+						fill='#34a853'
+					/>
+					<path
+						d='M119.3 324.3c-11.4-33.8-11.4-70.4 0-104.2V150H28.9c-38.6 76.9-38.6 167.5 0 244.4l90.4-70.1z'
+						fill='#fbbc04'
+					/>
+					<path
+						d='M272.1 107.7c38.8-.6 76.3 14 104.4 40.8l77.7-77.7C405 24.6 339.7-.8 272.1 0 169.2 0 75.1 58 28.9 150l90.4 70.1c21.5-64.5 81.8-112.4 152.8-112.4z'
+						fill='#ea4335'
+					/>
+				</svg>
+				Sign in with Google
+			</button>
+			<button
+				type='button'
+				className='inline-flex w-full items-center justify-center gap-2 rounded-md border bg-white py-3 px-4 align-middle text-sm font-medium text-logo shadow-sm transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-white'
+				onClick={() => signInWith('oauth_facebook')}
+			>
+				<svg
+					xmlns='http://www.w3.org/2000/svg'
+					fill='none'
+					height='1.25em'
+					stroke='none'
+					viewBox='0 0 24 24'
+					width='1.25em'
+				>
+					<path
+						d='M12 23.9999C18.6274 23.9999 24 18.6273 24 11.9999C24 5.37256 18.6274 0 12 0C5.37258 0 0 5.37256 0 11.9999C0 18.6273 5.37258 23.9999 12 23.9999Z'
+						fill='#1977F3'
+					/>
+					<path
+						d='M16.6717 15.4696L17.2033 12H13.8755V9.74886C13.8755 8.80047 14.3396 7.87402 15.8313 7.87402H17.345V4.92085C17.345 4.92085 15.9714 4.68628 14.6585 4.68628C11.918 4.68628 10.1258 6.34681 10.1258 9.35567V12H7.07812V15.4696H10.1258V23.8549C10.7367 23.9511 11.3628 24 12.0006 24C12.6385 24 13.2646 23.9494 13.8755 23.8549V15.4696H16.6717Z'
+						fill='white'
+					/>
+				</svg>
+				Sign in with Facebook
+			</button>
+		</div>
+	);
 };
 export default SocialProvider;
